@@ -139,9 +139,7 @@ def centertag():
            'Phone':phone,
            'Device_info':dev,
            'Timestamp':tim,
-           
-                   }
-        
+                              }
         rr=pd.DataFrame.from_records([response_data])
         rr.to_sql('center_tag',con=conn,if_exists='append',index=False)
         return response_data 
