@@ -31,7 +31,7 @@ conn = engine.connect()
 
 
 app=Flask(__name__)
-app.secret_key = 'rabbit12345' 
+app.secret_key = 'rabbit1234567' 
 CORS(app)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 @app.route('/home/')
