@@ -164,8 +164,7 @@
         color: #555; /* Set text color to a grayish tone */
         background-color: #eee; /* Set background color to a light gray */
         cursor: not-allowed; /* Show a not-allowed cursor to indicate readonly */
-        }  
-        
+        }
     </style>
 </head>
 
@@ -190,7 +189,6 @@
             <input type="text" id="coordinates" readonly placeholder="Location">
             <input type="hidden" id="deviceInfo" name="deviceInfo">
             <input type="hidden" id="timestamp" name="timestamp">
-            <input type="text" id="coordinates" readonly placeholder="Location">
             <button type="button" onclick="getLocation()">Get Location</button><input type="hidden" id="latitude"
                 name="latitude">
             <input type="hidden" id="longitude" name="longitude">
@@ -280,7 +278,7 @@
     if (navigator.geolocation) {
         // Function to handle successful location updates
         function successCallback(position) {
-            if (position.coords.accuracy <= 1500000) {
+            if (position.coords.accuracy <= 15) {
                 document.getElementById('latitude').value = position.coords.latitude.toFixed(7);
                 document.getElementById('longitude').value = position.coords.longitude.toFixed(7);
                 document.getElementById('coordinates').value = `Latitude: ${position.coords.latitude.toFixed(7)}, Longitude: ${position.coords.longitude.toFixed(7)}`;
@@ -347,7 +345,7 @@ const apiUrl = 'https://afpldist.onrender.com';
         }
 
 
-        // Apply the auto-suggestion function to specific text boxes with different IDs and database IDs
+        
         function formDataToJSON(formData) {
             const json = {};
             formData.forEach((value, key) => {
@@ -355,7 +353,28 @@ const apiUrl = 'https://afpldist.onrender.com';
             });
             return JSON.stringify(json);
         }
+        function captureDeviceInfo() {
+                var deviceInfo = "Device Type: ";
+                
+                if (navigator.userAgent.match(/Mobile|Tablet/)) {
+                    deviceInfo += "Mobile/Tablet";
+                } else {
+                    deviceInfo += "Desktop";
+                }
 
+                deviceInfo += "\n";
+                deviceInfo += "User Agent: " + navigator.userAgent;
+                var currentDate = new Date();
+                var timestamp =
+                    currentDate.getFullYear() + '-' +
+                    ('0' + (currentDate.getMonth() + 1)).slice(-2) + '-' +
+                    ('0' + currentDate.getDate()).slice(-2) + ' ' +
+                    ('0' + currentDate.getHours()).slice(-2) + ':' +
+                    ('0' + currentDate.getMinutes()).slice(-2) + ':' +
+                    ('0' + currentDate.getSeconds()).slice(-2);
+                document.getElementById("deviceInfo").value = deviceInfo;
+                document.getElementById("timestamp").value = timestamp;
+            }
         // Function to save offline submission
         function saveOfflineSubmission(formData) {
             const offlineSubmissions = JSON.parse(localStorage.getItem('offlineSubmissions')) || [];
@@ -403,7 +422,6 @@ const apiUrl = 'https://afpldist.onrender.com';
                     //window.location.href = window.location.href;
                 } else {
                     console.log('No offline submissions available.');
-                    alert('No offline submissions available.');
                 }
 
                 isSubmittingOfflineData = false;
@@ -419,9 +437,7 @@ const apiUrl = 'https://afpldist.onrender.com';
             return true;
         }
         function submitForm() {
-    // Capture selfie if not already captured
-   
-    // Validate form fields
+    
     const form = document.getElementById('dataForm');
     const inputs = form.querySelectorAll('input[required], select[required]');
     
@@ -444,40 +460,30 @@ const apiUrl = 'https://afpldist.onrender.com';
             return false;
         }
     }
-    if (!selfieCaptured) {
-        alert('Please capture a selfie before submitting.');
-        return false;
-    }
-    // Check if location is obtained before allowing form submission
+   
     const coordinates = document.getElementById('coordinates').value;
     if (!coordinates) {
         alert('Please click "Get Location" before submitting.');
         return false;
     }
-
+    captureDeviceInfo();
     // Submit the form data
     const formData = new FormData(form);
-    const questionDropdown = document.getElementById('question');
-    const selectedOption = questionDropdown.options[questionDropdown.selectedIndex].value;
-
-    // Now, you can use the "selectedOption" variable to save it in the database or perform other action
-    formData.append('selfie', selfieDataUrl);
-    formData.append('question', selectedOption);
-    console.log(2,formData)
-
     if (navigator.onLine) {
         // Submit the form data to the server
         submitFormData(formData);
+        submitOfflineData()
     } else {
         // Save the form data offline
         saveOfflineSubmission(formData);
+        alert('Successfully saved!'); 
     }
     return false;
 };
 
 
 function submitFormData(formData) {
-    return fetch('https://afpldist.onrender.com/fdata/', {
+    return fetch('https://afpldist.onrender.com/centertag/', {
         method: 'POST',
         body: formData,
     })
@@ -486,20 +492,21 @@ function submitFormData(formData) {
         console.log('Server Response:', data);
         // Handle the server response as needed
         if (data) {
-                alert('Successfully saved!'); // You can replace this with a more user-friendly message
-                window.location.href = window.location.href; // Refresh the page
+                alert('Successfully saved!'); 
+                window.location.href = window.location.href; 
             }
     })
     .catch(error => {
         console.error('Error:', error);
-        throw error; // Rethrow the error to handle it in the calling function
+        throw error; 
     });
 }
 
 function clearForm() {
-    const form = document.getElementById('dataForm'); // Replace 'dataForm' with the actual ID of your form
+    const form = document.getElementById('dataForm');
 
     // Reset text input, textarea, and select elements
+
     // Reset radio buttons and checkboxes
     form.querySelectorAll('input[type=radio], input[type=checkbox]').forEach(element => {
         element.checked = false;
@@ -511,10 +518,6 @@ function clearForm() {
     });
 
     // Reset other specific elements
-    document.getElementById('selfieImage').src = ''; // Reset the selfie image
-    document.getElementById('selfieVideo').style.display = 'none'; // Hide the selfie video
-    document.getElementById('selfieCanvas').style.display = 'none'; // Hide the selfie canvas
-    document.getElementById('selfieImage').style.display = 'none'; // Hide the selfie image
 
     // Clear any custom placeholders
     form.querySelectorAll('.custom-placeholder').forEach(element => {
@@ -532,8 +535,6 @@ function clearForm() {
     document.getElementById('cntrid').value = '';
     document.getElementById('lid').value = '';
     document.getElementById('phone').value = '';
-
-
 
     // Stop geolocation watch process
     // Optionally, scroll to the top of the form
