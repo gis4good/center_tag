@@ -106,12 +106,12 @@ def check_credentials(username, password):
 
 @app.route('/centertag/',methods=['POST'])
 def centertag():
-        empid = request.form.get('empid')
-        bid = request.form.get('bid')
-        zone = request.form.get('zone')
-        state = request.form.get('state')
-        district = request.form.get('district')
-        tehsil = request.form.get('tehsil')
+        empid = request.form.get('empid').replace("Employee ID - ",''),
+        bid = request.form.get('bid').replace('Branch - ',''),
+        zone = request.form.get('zone').replace('Zone - ',''),
+        state = request.form.get('state').replace('State - ',''),
+        district = request.form.get('district').replace('District - ',''),
+        tehsil = request.form.get('tehsil').replace('Tehsil - ',''),
         vila = request.form.get('vila')
         lid = request.form.get('lid')
         cntrnm = request.form.get('cntrnm')
