@@ -93,7 +93,7 @@ def check_credentials(username, password):
     # Implement your logic to check credentials against the database
     # Return True if the credentials are correct, False otherwise
     # This is a placeholder, replace it with your actual database logic
-    us=pd.read_sql(f"""select * from public.pass where "Emp ID"='{username}' and "password"='{password}'""" ,conn)
+    us=pd.read_sql(f"""select * from public.center_tag_pass where "Emp ID"='{username}' and "password"='{password}'""" ,conn)
     if len(us)==1:
         global branchvila
         global empid
