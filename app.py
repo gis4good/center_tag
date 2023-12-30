@@ -52,9 +52,9 @@ def index():
     # Check if the user is logged in before rendering the HTML template
     if 'username' in session:
        
-            us=pd.read_sql(f"""select * from public.pass where "Emp ID"='{empid}'""" ,conn).reset_index(drop=True)
+            us=pd.read_sql(f"""select * from public.center_tag_pass where "Emp ID"='{empid}'""" ,conn).reset_index(drop=True)
 
-            return render_template('center_tag.html',emp_id="Employee ID - "+us['Emp ID'][0],branch_name="Branch - "+us['Branch'][0],state="State - "+us['State'][0],district="District - "+us['District'][0],zone="Zone - "+us['Zone'][0],tehsil="Tehsil - "+us['Tehsil'][0])
+            return render_template('center_tag.html',emp_id="Employee ID - "+us['Emp ID'][0],branch_name="Branch - "+us['Branch'][0],state="State - "+us['State'][0],district="District - "+us['District'][0],zone="Zone - "+us['Zone '][0],tehsil="Tehsil - "+us['Tehsil'][0])
 
         
     else:
