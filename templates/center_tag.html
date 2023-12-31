@@ -313,37 +313,6 @@ function stopGeolocation() {
     }
 }
 
-const apiUrl = 'https://afpldist.onrender.com';
-        // Start the getLocation function initially
-        function setupAutoSuggestion(inputId, dataListId, dbId) {
-            const input = document.getElementById(inputId);
-            const dataList = document.getElementById(dataListId);
-
-            // Use lodash debounce to add a 2-second delay
-            const handleInputDebounced = _.debounce(async () => {
-                const inputValue = input.value.trim();
-
-                // Clear previous suggestions
-                dataList.innerHTML = '';
-
-                // Make a request to the server for suggestions only if the input is not empty
-                if (inputValue !== '') {
-                    const response = await fetch(`${apiUrl}/sugg?input=${inputValue}&db=${dbId}`);
-                    const suggestions = await response.json();
-
-                    // Populate datalist with suggestions
-                    suggestions.forEach((suggestion) => {
-                        const option = document.createElement('option');
-                        option.value = suggestion;
-                        dataList.appendChild(option);
-                    });
-                }
-            }, 500); // 2000 milliseconds debounce time (2 seconds)
-
-            // Attach the debounced function to the input event
-            input.addEventListener('input', handleInputDebounced);
-        }
-
 
         
         function formDataToJSON(formData) {
@@ -483,7 +452,7 @@ const apiUrl = 'https://afpldist.onrender.com';
 
 
 function submitFormData(formData) {
-    return fetch('https://afpldist.onrender.com/centertag/', {
+    return fetch('https://center-tag.onrender.com/centertag/', {
         method: 'POST',
         body: formData,
     })
