@@ -106,12 +106,12 @@ def check_credentials(username, password):
 
 @app.route('/centertag/',methods=['POST'])
 def centertag():
-        empid = request.form.get('empid').replace("Employee ID - ",''),
-        bid = request.form.get('bid').replace('Branch - ',''),
-        zone = request.form.get('zone').replace('Zone - ',''),
-        state = request.form.get('state').replace('State - ',''),
-        district = request.form.get('district').replace('District - ',''),
-        tehsil = request.form.get('tehsil').replace('Tehsil - ',''),
+        empid = request.form.get('empid'),
+        bid = request.form.get('bid'),
+        zone = request.form.get('zone'),
+        state = request.form.get('state'),
+        district = request.form.get('district'),
+        tehsil = request.form.get('tehsil'),
         vila = request.form.get('vila')
         lid = request.form.get('lid')
         cntrnm = request.form.get('cntrnm')
@@ -123,12 +123,12 @@ def centertag():
         dev=request.form.get('deviceInfo')   
         tim=request.form.get('timestamp')       
         response_data = {
-           'Emp_id':empid.replace("Employee ID - ",''), 
-           'Branch': bid.replace("Branch - ",''),
-           'State': state.replace("State - ",''),
-           'District':district.replace("District - ",''),
-           'Tehsil':tehsil.replace("Tehsil - ",''),
-           'zone': zone.replace("Zone - ",''),
+           'Emp_id':str(empid).replace("Employee ID - ",''), 
+           'Branch': str(bid).replace("Branch - ",''),
+           'State': str(state).replace("State - ",''),
+           'District':str(district).replace("District - ",''),
+           'Tehsil':str(tehsil).replace("Tehsil - ",''),
+           'zone': str(zone).replace("Zone - ",''),
            'Village':vila,
            'Loan_id':lid,
            'Center_name':cntrnm,
