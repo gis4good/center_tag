@@ -123,12 +123,12 @@ def centertag():
         dev=request.form.get('deviceInfo')   
         tim=request.form.get('timestamp')       
         response_data = {
-           'Emp_id':str(empid).replace("Employee ID - ",''), 
-           'Branch': str(bid).replace("Branch - ",''),
-           'State': str(state).replace("State - ",''),
-           'District':str(district).replace("District - ",''),
-           'Tehsil':str(tehsil).replace("Tehsil - ",''),
-           'zone': str(zone).replace("Zone - ",''),
+           'Emp_id':empid.replace("Employee ID - ",''), 
+           'Branch':bid.replace("Branch - ",''),
+           'State': state.replace("State - ",''),
+           'District':district.replace("District - ",''),
+           'Tehsil':tehsil.replace("Tehsil - ",''),
+           'zone': zone.replace("Zone - ",''),
            'Village':vila,
            'Loan_id':lid,
            'Center_name':cntrnm,
