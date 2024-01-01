@@ -160,11 +160,6 @@
         background-color: #eee; /* Set background color to a light gray */
         cursor: not-allowed; /* Show a not-allowed cursor to indicate readonly */
         } 
-        #tehsil {
-        color: #555; /* Set text color to a grayish tone */
-        background-color: #eee; /* Set background color to a light gray */
-        cursor: not-allowed; /* Show a not-allowed cursor to indicate readonly */
-        }
     </style>
 </head>
 
@@ -179,7 +174,6 @@
             <input type="text" id="zone" name="zone" placeholder="Zone" required value="{{ zone }}"readonly onfocus="this.blur()" >
             <input type="text" id="district" name="district" placeholder="District" required value="{{ district }}" readonly onfocus="this.blur()">
             <input type="text" id="state" name="state" placeholder="State" required value="{{ state }}"readonly onfocus="this.blur()" >
-            <input type="text" id="tehsil" name="tehsil" placeholder="Tehsil" required value="{{ tehsil }}"readonly onfocus="this.blur()" >
             <input type="text" id="vila" name="vila" placeholder="Village Name" required >
             <input type="tel" id="pincode" name="pincode" placeholder="Pincode" maxlength="5" required onblur="validatepincode(this)" required>
             <input type="text" id="cntrnm" name="cntrnm" placeholder="Center Name" required >
