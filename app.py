@@ -54,7 +54,7 @@ def index():
        
             us=pd.read_sql(f"""select * from public.center_tag_pass where "Emp ID"='{empid}'""" ,conn).reset_index(drop=True)
 
-            return render_template('center_tag.html',emp_id="Employee ID - "+us['Emp ID'][0],branch_name="Branch - "+us['Branch'][0],state="State - "+us['State'][0],district="District - "+us['District'][0],zone="Zone - "+us['Zone '][0],tehsil="Tehsil - "+us['Tehsil'][0])
+            return render_template('center_tag.html',emp_id="Employee ID - "+us['Emp ID'][0],branch_name="Branch - "+us['Branch'][0],state="State - "+us['State'][0],district="District - "+us['District'][0],zone="Zone - "+us['Zone '][0])
 
         
     else:
@@ -111,7 +111,6 @@ def centertag():
         zone = request.form.get('zone'),
         state = request.form.get('state'),
         district = request.form.get('district'),
-        tehsil = request.form.get('tehsil'),
         vila = request.form.get('vila')
         lid = request.form.get('lid')
         cntrnm = request.form.get('cntrnm')
@@ -127,7 +126,6 @@ def centertag():
            'Branch':''.join(bid).replace("Branch - ",''),
            'State': ''.join(state).replace("State - ",''),
            'District':''.join(district).replace("District - ",''),
-           'Tehsil':''.join(tehsil).replace("Tehsil - ",''),
            'zone': ''.join(zone).replace("Zone - ",''),
            'Village':vila,
            'Loan_id':lid,
