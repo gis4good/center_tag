@@ -25,7 +25,7 @@ from sqlalchemy import create_engine,text
 # os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "ndvi12345-c712223647ab.json"
 # ee.Initialize()
 # os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-engine = create_engine('postgresql://root:oJmXhoHDzuGG3IZHnbnrEnRQR7QqLR5Q@dpg-cl6p55oicrhc73csvf10-a.oregon-postgres.render.com/afpldb')
+engine = create_engine('postgresql://doadmin:AVNS_bpwl8NBaQY9lxEc_uaR@afpl-db-do-user-12648054-0.c.db.ondigitalocean.com:25060/defaultdb?sslmode=require',pool_size=4)
 conn = engine.connect()
 
 
